@@ -20,3 +20,10 @@ Mail::to('leonardo.santana@gmail.com')->send(new \App\Mail\MensagemTesteMail());
 ```sh
 php artisan vendor:publish number_laravel-mail
 ```
+
+# Olhar arquivos padrões no vendor
+- vendor/laravel/framework/src/illuminate
+# Create notifications class
+```sh
+php artisan make:notification NameClassNotification
+```
