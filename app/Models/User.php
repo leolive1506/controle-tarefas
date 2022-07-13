@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Notifications\RedefinirSenhaNotification;
+use App\Notifications\VerifyEmailNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -48,5 +49,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         // como usa trait Notifiable, da pra usar notify dela
         $this->notify(new RedefinirSenhaNotification($token));
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmailNotification($this));
     }
 }

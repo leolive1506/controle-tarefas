@@ -27,3 +27,22 @@ php artisan vendor:publish number_laravel-mail
 ```sh
 php artisan make:notification NameClassNotification
 ```
+
+# Verificar email
+```php
+// model
+class User extends Authenticatable implements MustVerifyEmail {}
+
+// web.php
+Route::group(['middleware' => ['auth', 'verified']], function () {});
+```
+
+# Personalizar pagina email
+```php
+// php artisan make:notification VerifyEmailNotification
+// model 
+public function sendEmailVerificationNotification()
+{
+    $this->notify(new MyClassCreatedNotification);
+}
+```
