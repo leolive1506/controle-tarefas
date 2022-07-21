@@ -101,7 +101,7 @@ class TarefaController extends Controller
             'xlsx', 'csv'
         ];
 
-        if (!is_null(request('extension')) && in_array(request('extension'), $validateExtenstion)) {
+        if (!is_null(request('extension')) && in_array(request('extension'), $validExtenstion)) {
             $extension = strtolower(request('extension'));
         }
 
