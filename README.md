@@ -63,3 +63,13 @@ public const HOME = '/tarefas';
     Olá visitante
 @endguest
 ```
+
+# [Laravel-excel](https://laravel-excel.com/)
+```sh
+composer require psr/simple-cache:^2.0 maatwebsite/excel
+```
+
+- Criar uma classe de exportação
+```sh
+php artisan make:export UsersExport --model=User
+```

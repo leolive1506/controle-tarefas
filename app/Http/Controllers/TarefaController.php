@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TarefasExport;
 use App\Mail\NovaTarefaMail;
 use App\Models\Tarefa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class TarefaController extends Controller
 {
@@ -90,5 +93,10 @@ class TarefaController extends Controller
     {
         Tarefa::destroy($id);
         return redirect()->route('tarefas.index');
+    }
+
+    public function export()
+    {
+        return Excel::download(new TarefasExport, 'tarefas.xlsx');
     }
 }
