@@ -16,7 +16,8 @@ class TarefaController extends Controller
      */
     public function index()
     {
-        //
+        $tarefas = Tarefa::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->paginate(3);
+        return view('pages.tarefa.index', compact('tarefas'));
     }
 
     /**
@@ -61,9 +62,9 @@ class TarefaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tarefa $tarefa)
     {
-        //
+        return view('pages.tarefa.create', compact('tarefa'));
     }
 
     /**
@@ -73,9 +74,10 @@ class TarefaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tarefa $tarefa)
     {
-        //
+        $tarefa->update($request->all());
+        return redirect()->route('tarefas.show', ['tarefa' => $tarefa->id]);
     }
 
     /**
@@ -86,6 +88,7 @@ class TarefaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Tarefa::destroy($id);
+        return redirect()->route('tarefas.index');
     }
 }

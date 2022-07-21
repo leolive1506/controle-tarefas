@@ -32,7 +32,11 @@
 
                 <div class="pt-5">
                     <div class="flex justify-end">
-                        <a href="{{ url()->previous() }}"
+                        <a href="{{
+                            url()->previous() != url(route(request()->route()->getName(), $tarefa->id))
+                                ? url()->previous()
+                                :  route('tarefas.index')
+                        }}"
                             class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             Voltar
                         </a>

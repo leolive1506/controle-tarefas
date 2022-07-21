@@ -21,9 +21,6 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
     Route::resource('tarefas', TarefaController::class);
 });
 
@@ -32,5 +29,7 @@ Route::get('mensagem-teste', function () {
     Mail::to('leonardo.santana@paylivre.com')->send(new \App\Mail\MensagemTesteMail());
     return "enviado";
 })->name('teste');
+
+Route::get('teste', fn () => view('welcome2'));
 
 require __DIR__.'/auth.php';

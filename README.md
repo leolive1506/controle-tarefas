@@ -46,3 +46,20 @@ public function sendEmailVerificationNotification()
     $this->notify(new MyClassCreatedNotification);
 }
 ```
+
+# Mudar rota padrão de redirecionamento após login
+- Em RouteServiceProvider
+```php
+public const HOME = '/tarefas';
+```
+
+# MOstrar dados somente se user estiver logado
+```php
+@auth
+    Usuário logado
+@endauth
+
+@guest
+    Olá visitante
+@endguest
+```
