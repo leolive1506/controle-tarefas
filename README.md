@@ -73,3 +73,16 @@ composer require psr/simple-cache:^2.0 maatwebsite/excel
 ```sh
 php artisan make:export UsersExport --model=User
 ```
+
+- Usando MPDF
+```sh
+composer require mpdf/mpdf
+# se não funcionar
+composer require mpdf/mpdf -W
+```
+
+- Em excel.php
+```php
+# mudar para 
+'pdf'      => Excel::MPDF,
+```

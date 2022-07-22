@@ -98,7 +98,7 @@ class TarefaController extends Controller
     public function export(Request $request, $extension = 'xlsx')
     {
         $validExtenstion = [
-            'xlsx', 'csv'
+            'xlsx', 'csv', 'pdf'
         ];
 
         if (!is_null(request('extension')) && in_array(request('extension'), $validExtenstion)) {
