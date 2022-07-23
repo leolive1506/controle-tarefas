@@ -86,3 +86,22 @@ composer require mpdf/mpdf -W
 # mudar para 
 'pdf'      => Excel::MPDF,
 ```
+
+- Laravel [DOMPDF](https://github.com/barryvdh/laravel-dompdf)
+```sh
+composer require barryvdh/laravel-dompdf
+```
+
+- Add config/app.php
+```php
+// provider
+Barryvdh\DomPDF\ServiceProvider::class
+
+// aliases
+'PDF' => Barryvdh\DomPDF\Facade::class,
+```
+
+- Publicar provider dompdf
+```sh
+php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider"
+```

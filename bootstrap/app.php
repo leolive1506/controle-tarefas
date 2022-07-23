@@ -52,4 +52,8 @@ $app->singleton(
 |
 */
 
+/**
+ * Config packege DOMPDF
+ */
+
 return $app;
