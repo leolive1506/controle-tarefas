@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('tarefas/exportacao', [TarefaController::class, 'export'])->name('tarefas.exportacao');
+    Route::get('tarefas/exportacao-dompdf', [TarefaController::class, 'exportDomPdf'])->name('tarefas.exportacao-dompdf');
     Route::resource('tarefas', TarefaController::class);
 });
 

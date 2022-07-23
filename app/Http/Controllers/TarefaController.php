@@ -8,6 +8,7 @@ use App\Models\Tarefa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class TarefaController extends Controller
@@ -106,5 +107,12 @@ class TarefaController extends Controller
         }
 
         return Excel::download(new TarefasExport, 'tarefas.' . $extension);
+    }
+
+    public function exportDomPdf()
+    {
+        $tarefas = Tarefa::with('user')->where('user_id', auth()->user()->id)->orderBy('id', 'desc')->get();
+        $pdf = Pdf::loadView('pages.tarefa.pdf', ['tarefas' => $tarefas]);
+        return $pdf->download('invoice.pdf');
     }
 }
