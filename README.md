@@ -63,3 +63,64 @@ public const HOME = '/tarefas';
     Olá visitante
 @endguest
 ```
+
+# [Laravel-excel](https://laravel-excel.com/)
+```sh
+composer require psr/simple-cache:^2.0 maatwebsite/excel
+```
+
+- Criar uma classe de exportação
+```sh
+php artisan make:export UsersExport --model=User
+```
+
+- Usando MPDF
+```sh
+composer require mpdf/mpdf
+# se não funcionar
+composer require mpdf/mpdf -W
+```
+
+- Em excel.php
+```php
+# mudar para 
+'pdf'      => Excel::MPDF,
+```
+
+- Laravel [DOMPDF](https://github.com/barryvdh/laravel-dompdf)
+```sh
+composer require barryvdh/laravel-dompdf
+```
+
+- Add config/app.php
+```php
+// provider
+Barryvdh\DomPDF\ServiceProvider::class
+
+// aliases
+'PDF' => Barryvdh\DomPDF\Facade::class,
+```
+
+- Publicar provider dompdf
+```sh
+php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider"
+```
+
+- Dowload vs Stream
+    - Dowload ao clicar ja baixa
+    - Stream abre uma página no navegador e o usuário escolhe se o que irá fazer
+
+```php
+$tarefas = Tarefa::with('user')->where('user_id', auth()->user()->id)->orderBy('id', 'desc')->get();
+$pdf = Pdf::loadView('pages.tarefa.pdf', ['tarefas' => $tarefas]);
+// return $pdf->download('invoice.pdf');
+return $pdf->stream('invoice.pdf');
+```
+
+- Set papel e orientação
+```php
+$pdf->setPaper('a4', 'portrait');
+// portrait -> default -> retrato
+// landscape -> paisagem
+```
+

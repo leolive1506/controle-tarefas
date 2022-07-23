@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TarefasExport;
 use App\Mail\NovaTarefaMail;
 use App\Models\Tarefa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class TarefaController extends Controller
 {
@@ -90,5 +94,26 @@ class TarefaController extends Controller
     {
         Tarefa::destroy($id);
         return redirect()->route('tarefas.index');
+    }
+
+    public function export(Request $request, $extension = 'xlsx')
+    {
+        $validExtenstion = [
+            'xlsx', 'csv', 'pdf'
+        ];
+
+        if (!is_null(request('extension')) && in_array(request('extension'), $validExtenstion)) {
+            $extension = strtolower(request('extension'));
+        }
+
+        return Excel::download(new TarefasExport, 'tarefas.' . $extension);
+    }
+
+    public function exportDomPdf()
+    {
+        $tarefas = Tarefa::with('user')->where('user_id', auth()->user()->id)->orderBy('id', 'desc')->get();
+        $pdf = Pdf::loadView('pages.tarefa.pdf', ['tarefas' => $tarefas]);
+        // return $pdf->download('invoice.pdf');
+        return $pdf->stream('invoice.pdf');
     }
 }
