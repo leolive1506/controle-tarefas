@@ -113,6 +113,7 @@ class TarefaController extends Controller
     {
         $tarefas = Tarefa::with('user')->where('user_id', auth()->user()->id)->orderBy('id', 'desc')->get();
         $pdf = Pdf::loadView('pages.tarefa.pdf', ['tarefas' => $tarefas]);
-        return $pdf->download('invoice.pdf');
+        // return $pdf->download('invoice.pdf');
+        return $pdf->stream('invoice.pdf');
     }
 }

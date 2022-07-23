@@ -105,3 +105,22 @@ Barryvdh\DomPDF\ServiceProvider::class
 ```sh
 php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider"
 ```
+
+- Dowload vs Stream
+    - Dowload ao clicar ja baixa
+    - Stream abre uma página no navegador e o usuário escolhe se o que irá fazer
+
+```php
+$tarefas = Tarefa::with('user')->where('user_id', auth()->user()->id)->orderBy('id', 'desc')->get();
+$pdf = Pdf::loadView('pages.tarefa.pdf', ['tarefas' => $tarefas]);
+// return $pdf->download('invoice.pdf');
+return $pdf->stream('invoice.pdf');
+```
+
+- Set papel e orientação
+```php
+$pdf->setPaper('a4', 'portrait');
+// portrait -> default -> retrato
+// landscape -> paisagem
+```
+
